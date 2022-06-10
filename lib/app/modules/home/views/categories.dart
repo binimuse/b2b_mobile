@@ -2,8 +2,6 @@ import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
-
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -61,7 +59,7 @@ class CategoryCard extends StatelessWidget {
               ),
               child: SvgPicture.asset(icon!),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(text!, textAlign: TextAlign.center)
           ],
         ),

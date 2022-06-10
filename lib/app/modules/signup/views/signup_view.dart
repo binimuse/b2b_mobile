@@ -38,39 +38,56 @@ class SignupView extends GetView<SignupController> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.08),
-                    Obx(() => controller.loading.value != true
-                        ? const Center(child: CircularProgressIndicator())
-                        : Form(
-                            key: controller.formKey,
-                            child: Column(
-                              children: [
-                                buildEmailFormField(),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(30)),
-                                buildPasswordFormField(),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(30)),
-                                buildConformPassFormField(),
-                                FormError(errors: controller.errors.value),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(40)),
-                                DefaultButton(
-                                  text: "Continue",
-                                  press: () {
-                                    if (controller.formKey.currentState!
-                                        .validate()) {
-                                      controller.formKey.currentState!.save();
-                                      // if all are valid then go to success screen
-                                      // Navigator.pushNamed(
-                                      //     context, CompleteProfileScreen.routeName);
+                    Form(
+                      autovalidateMode: AutovalidateMode.disabled,
+                      key: controller.regFormKey,
+                      child: Column(
+                        children: [
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : buildNameFormField()),
+                          SizedBox(height: getProportionateScreenHeight(30)),
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : buildEmailFormField()),
+                          SizedBox(height: getProportionateScreenHeight(30)),
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : buildPasswordFormField()),
+                          SizedBox(height: getProportionateScreenHeight(30)),
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : buildConformPassFormField()),
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : FormError(errors: controller.errors.value)),
+                          SizedBox(height: getProportionateScreenHeight(40)),
+                          Obx(
+                            () => controller.loading.value != true
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : DefaultButton(
+                                    text: "Continue",
+                                    press: () {
+                                      //   if (controller.regFormKey.currentState!
+                                      //       .validate()) {
+                                      //     controller.regFormKey.currentState!
+                                      //         .save();
 
-                                      Get.toNamed(Routes.HOME);
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          )),
+                                      //     // if all are valid then go to success screen
+                                      //     // Navigator.pushNamed(
+                                      //     //     context, CompleteProfileScreen.routeName);
+
+                                      //  //   Get.toNamed(Routes.HOME);
+                                      //   }
+
+                                      controller.checkReg();
+                                    },
+                                  ),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(height: SizeConfig.screenHeight * 0.08),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -105,16 +122,17 @@ class SignupView extends GetView<SignupController> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      controller: controller.passwordConfirmController,
       obscureText: true,
-      onSaved: (newValue) => controller.conform_password = newValue,
+      onSaved: (newValue) => controller.passwordConfirm.value = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           controller.removeError(error: kPassNullError);
         } else if (value.isNotEmpty &&
-            controller.password == controller.conform_password) {
+            controller.password == controller.passwordConfirm) {
           controller.removeError(error: kMatchPassError);
         }
-        controller.conform_password = value;
+        controller.passwordConfirm.value = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -139,15 +157,16 @@ class SignupView extends GetView<SignupController> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: controller.passwordController,
       obscureText: true,
-      onSaved: (newValue) => controller.password = newValue,
+      onSaved: (newValue) => controller.password.value = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           controller.removeError(error: kPassNullError);
         } else if (value.length >= 8) {
           controller.removeError(error: kShortPassError);
         }
-        controller.password = value;
+        controller.password.value = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -159,7 +178,7 @@ class SignupView extends GetView<SignupController> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Password",
         hintText: "Enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
@@ -170,17 +189,47 @@ class SignupView extends GetView<SignupController> {
     );
   }
 
+  TextFormField buildNameFormField() {
+    return TextFormField(
+      controller: controller.nameController,
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => controller.name.value = newValue!,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          controller.removeError(error: kNameNullError);
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          controller.addError(error: kNameNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Name",
+        hintText: "Enter your Name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/person.svg"),
+      ),
+    );
+  }
+
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => controller.email = newValue,
+      controller: controller.emailController,
+      onSaved: (newValue) => controller.email.value = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           controller.removeError(error: kEmailNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
           controller.removeError(error: kInvalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -192,7 +241,7 @@ class SignupView extends GetView<SignupController> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Email",
         hintText: "Enter your email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
