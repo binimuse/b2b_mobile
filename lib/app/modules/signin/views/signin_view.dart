@@ -43,61 +43,123 @@ class SigninView extends GetView<SigninController> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  Obx(
-                    () => controller.loading.value != true
-                        ? const Center(child: CircularProgressIndicator())
-                        : Form(
-                            key: controller.formKey,
-                            child: Column(
-                              children: [
-                                buildEmailFormField(),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(30)),
-                                buildPasswordFormField(),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(30)),
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      value: controller.remember.value,
-                                      activeColor: kPrimaryColor,
-                                      onChanged: (value) {
-                                        controller.remember.value = value!;
-                                      },
+                  Form(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      key: controller.loginFormKey,
+                      child: Column(
+                        children: [
+                          Obx(
+                            () => controller.loading.value != true
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : TextFormField(
+                                    controller: controller.emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    onSaved: (newValue) =>
+                                        controller.email = newValue,
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        controller.removeError(
+                                            error: kEmailNullError);
+                                      }
+                                      return null;
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        controller.addError(
+                                            error: kEmailNullError);
+                                        return "";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: const InputDecoration(
+                                      labelText: "Email",
+                                      hintText: "Enter your email",
+                                      // If  you are using latest version of flutter then lable text and hint text shown like this
+                                      // if you r using flutter less then 1.20.* then maybe this is not working properly
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      suffixIcon: CustomSurffixIcon(
+                                          svgIcon: "assets/icons/Mail.svg"),
                                     ),
-                                    Text("Remember me"),
-                                    Spacer(),
-                                    GestureDetector(
-                                      onTap: () =>
-                                          Get.toNamed(Routes.FORGOTPASSWORD),
-                                      child: Text(
-                                        "Forgot Password",
-                                        style: TextStyle(
-                                            decoration:
-                                                TextDecoration.underline),
-                                      ),
-                                    )
-                                  ],
+                                  ),
+                          ),
+                          SizedBox(height: getProportionateScreenHeight(30)),
+                          Obx(
+                            () => controller.loading.value != true
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : TextFormField(
+                                    controller: controller.passwordController,
+                                    obscureText: true,
+                                    onSaved: (newValue) =>
+                                        controller.password = newValue,
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        controller.removeError(
+                                            error: kPassNullError);
+                                      }
+                                      return null;
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        controller.addError(
+                                            error: kPassNullError);
+                                        return "";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: const InputDecoration(
+                                      labelText: "Password",
+                                      hintText: "Enter your password",
+                                      // If  you are using latest version of flutter then lable text and hint text shown like this
+                                      // if you r using flutter less then 1.20.* then maybe this is not working properly
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      suffixIcon: CustomSurffixIcon(
+                                          svgIcon: "assets/icons/Lock.svg"),
+                                    ),
+                                  ),
+                          ),
+                          SizedBox(height: getProportionateScreenHeight(30)),
+                          Row(
+                            children: [
+                              SizedBox(height: 50),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () => Get.toNamed(Routes.FORGOTPASSWORD),
+                                child: Text(
+                                  "Forgot Password",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline),
                                 ),
-                                FormError(errors: controller.errors.value),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(20)),
-                                DefaultButton(
-                                  text: "Continue",
-                                  press: () {
-                                    if (controller.formKey.currentState!
-                                        .validate()) {
-                                      controller.formKey.currentState!.save();
-                                      // if all are valid then go to success screen
-                                      KeyboardUtil.hideKeyboard(context);
-                                      // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                                      Get.toNamed(Routes.HOME);
-                                    }
-                                  },
-                                ),
-                              ],
-                            )),
-                  ),
+                              )
+                            ],
+                          ),
+                          Obx(() => controller.loading.value != true
+                              ? const Center(child: CircularProgressIndicator())
+                              : FormError(errors: controller.errors.value)),
+                          SizedBox(height: getProportionateScreenHeight(20)),
+                          Obx(
+                            () => controller.loading.value != true
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : DefaultButton(
+                                    text: "Continue",
+                                    press: () {
+                                      if (controller.loginFormKey.currentState!
+                                          .validate()) {
+                                        controller.loginFormKey.currentState!
+                                            .save();
+                                        // if all are valid then go to success screen
+                                        KeyboardUtil.hideKeyboard(context);
+                                        controller.signIn();
+                                      }
+                                    },
+                                  ),
+                          )
+                        ],
+                      )),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -123,71 +185,5 @@ class SigninView extends GetView<SigninController> {
             ),
           ),
         )));
-  }
-
-  TextFormField buildPasswordFormField() {
-    return TextFormField(
-      obscureText: true,
-      onSaved: (newValue) => controller.password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          controller.removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
-          controller.removeError(error: kShortPassError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          controller.addError(error: kPassNullError);
-          return "";
-        } else if (value.length < 8) {
-          controller.addError(error: kShortPassError);
-          return "";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildEmailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => controller.email = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          controller.removeError(error: kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          controller.removeError(error: kInvalidEmailError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          controller.addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          controller.addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
-    );
   }
 }

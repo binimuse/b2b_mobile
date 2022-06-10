@@ -56,8 +56,11 @@ class SplashView extends GetView<SplashController> {
                           DefaultButton(
                             text: "Continue",
                             press: () {
-                              // Get.toNamed(Routes.SIGNIN);
-                              Get.toNamed(Routes.HOME);
+                              if (controller.acc != null) {
+                                Get.toNamed(Routes.HOME);
+                              } else {
+                                Get.toNamed(Routes.SIGNIN);
+                              }
                             },
                           ),
                           const Spacer(),
