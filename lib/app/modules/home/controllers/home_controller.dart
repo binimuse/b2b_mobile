@@ -45,7 +45,8 @@ class HomeController extends GetxController {
           id: result.data!["categories"]["data"][i]["id"],
           name: result.data!["categories"]["data"][i]["name"],
           iamgelink: result.data!["categories"]["data"][i]["image"],
-          brand: result.data!["categories"]["data"][i]["children"].length,
+          children_count: result.data!["categories"]["data"][i]
+              ["children_count"],
         ));
 
         loading(false);

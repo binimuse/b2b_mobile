@@ -92,7 +92,7 @@ class CategoriesView extends GetView<HomeController> {
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text(orderData.brand.toString() + ' item',
+                    Text(orderData.children_count.toString() + ' item',
                         style: TextStyle(fontSize: 12, color: SOFT_GREY))
                   ],
                 ),

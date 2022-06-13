@@ -113,7 +113,8 @@ class SpecialOffers extends GetView<HomeController> {
                       style: const TextStyle(color: Colors.white),
                       children: [
                         TextSpan(
-                            text: catagoriData.brand.toString() + " Brands")
+                            text: catagoriData.children_count.toString() +
+                                " Brands")
                       ],
                     ),
                   ),
