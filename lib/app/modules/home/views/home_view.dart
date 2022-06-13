@@ -26,7 +26,7 @@ class HomeView extends GetView<HomeController> {
               HomeHeader(),
               SizedBox(height: getProportionateScreenWidth(10)),
               DiscountBanner(),
-              Categories(),
+              //  Categories(),
               SpecialOffers(),
               SizedBox(height: getProportionateScreenWidth(30)),
               PopularProducts(),

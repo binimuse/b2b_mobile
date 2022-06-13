@@ -1,3 +1,5 @@
+import 'package:b2b_mobile/app/modules/home/catagories_model.dart';
+import 'package:b2b_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:b2b_mobile/components/coustom_bottom_nav_bar.dart';
 import 'package:b2b_mobile/constant/cache_image_network.dart';
 import 'package:b2b_mobile/constant/constants.dart';
@@ -7,11 +9,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/order_controller.dart';
-import '../order_model.dart';
-import 'order_detail.dart';
+class CategoriesView extends GetView<HomeController> {
+  const CategoriesView({Key? key}) : super(key: key);
 
-class OrderView extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +22,16 @@ class OrderView extends GetView<OrderController> {
         ),
         systemOverlayStyle: GlobalStyle.appBarSystemOverlayStyle,
         centerTitle: true,
-        title: Text('Order History', style: GlobalStyle.appBarTitle),
+        title: Text('Categories', style: GlobalStyle.appBarTitle),
         backgroundColor: GlobalStyle.appBarBackgroundColor,
         bottom: controller.reusableWidget.bottomAppBar(),
       ),
       body: ListView.builder(
-        itemCount: controller.orderData.length,
+        itemCount: controller.CatagoriData.length,
         padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
         physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          return _buildOrderHistoryCard(controller.orderData[index]);
+          return _buildOrderHistoryCard(controller.CatagoriData[index]);
         },
       ),
       bottomNavigationBar:
@@ -39,9 +39,9 @@ class OrderView extends GetView<OrderController> {
     );
   }
 
-  Widget _buildOrderHistoryCard(OrderHistoryModel orderData) {
+  Widget _buildOrderHistoryCard(CategoriesModel orderData) {
     return Card(
-      margin: EdgeInsets.only(top: 16),
+      margin: const EdgeInsets.only(top: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
@@ -50,7 +50,7 @@ class OrderView extends GetView<OrderController> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          Get.to(const OrderDetailPage(), transition: Transition.noTransition);
+          // Get.to(const OrderDetailPage(), transition: Transition.noTransition);
         },
         child: Container(
           padding: EdgeInsets.all(16),
@@ -58,7 +58,7 @@ class OrderView extends GetView<OrderController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                "assets/images/soap.png",
+                "assets/images/sweets.jpg",
                 height: 40,
                 //40%
               ),
@@ -81,18 +81,18 @@ class OrderView extends GetView<OrderController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(orderData.date,
-                                style:
-                                    TextStyle(fontSize: 11, color: SOFT_GREY)),
-                            Text(orderData.time,
-                                style:
-                                    TextStyle(fontSize: 11, color: SOFT_GREY)),
+                            // Text(orderData.date,
+                            //     style:
+                            //         TextStyle(fontSize: 11, color: SOFT_GREY)),
+                            // Text(orderData.time,
+                            //     style:
+                            //         TextStyle(fontSize: 11, color: SOFT_GREY)),
                           ],
                         )
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text(orderData.countItem.toString() + ' item',
+                    Text(orderData.brand.toString() + ' item',
                         style: TextStyle(fontSize: 12, color: SOFT_GREY))
                   ],
                 ),

@@ -71,12 +71,13 @@ class SignupController extends GetxController {
           },
         ),
       );
-      print(result);
+   
       if (!result.hasException) {
+        print(result.data!);
         Navigator.of(Get.context!).pop();
-        // final prefs = await SharedPreferences.getInstance();
-        // await prefs.setString(
-        //     'access_token', result.data!["action"]["tokens"]["access_token"]);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(
+            'access_token', result.data!["register"]["token"]);
 
         Get.snackbar("success", "Successfully registered");
         Get.offAllNamed(Routes.SIGNIN);
