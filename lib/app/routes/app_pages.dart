@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/categories_detail/bindings/categories_detail_binding.dart';
+import '../modules/categories_detail/views/categories_detail_view.dart';
 import '../modules/forgotpassword/bindings/forgotpassword_binding.dart';
 import '../modules/forgotpassword/views/forgotpassword_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -94,6 +96,11 @@ class AppPages {
       name: _Paths.WALLET,
       page: () => WalletView(),
       binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATEGORIES_DETAIL,
+      page: () => CategoriesDetailView(),
+      binding: CategoriesDetailBinding(),
     ),
   ];
 }

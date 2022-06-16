@@ -3,6 +3,8 @@
 import 'package:b2b_mobile/app/modules/home/catagories_model.dart';
 import 'package:b2b_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:b2b_mobile/app/modules/home/views/special_categories_detail.dart';
+import 'package:b2b_mobile/app/routes/app_pages.dart';
+import 'package:b2b_mobile/constant/cache_image_network.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +66,9 @@ class SpecialOffers extends GetView<HomeController> {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(Routes.CATEGORIES_DETAIL, arguments: catagoriData.id);
+        },
         child: SizedBox(
           width: getProportionateScreenWidth(272),
           height: getProportionateScreenWidth(100),
@@ -72,10 +76,7 @@ class SpecialOffers extends GetView<HomeController> {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  "assets/images/sweets.jpg",
-                  fit: BoxFit.cover,
-                ),
+                buildCacheNetworkImage(url: catagoriData.iamgelink),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
