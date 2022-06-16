@@ -1,3 +1,5 @@
+import 'package:b2b_mobile/app/modules/prodact_detail/prodact_detail_model.dart';
+import 'package:b2b_mobile/constant/cache_image_network.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:b2b_mobile/models/Product.dart';
@@ -6,10 +8,10 @@ import 'package:flutter/material.dart';
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key? key,
-    required this.product,
+    required this.image,
   }) : super(key: key);
 
-  final Product product;
+  final List<String> image;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -24,18 +26,19 @@ class _ProductImagesState extends State<ProductImages> {
         SizedBox(
           width: getProportionateScreenWidth(238),
           child: AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: 0.6,
             child: Hero(
-              tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
-            ),
+                tag: "id",
+                child: buildCacheNetworkImage(
+                  url: (widget.image[selectedImage]),
+                )),
           ),
         ),
         // SizedBox(height: getProportionateScreenWidth(20)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.product.images.length,
+            ...List.generate(widget.image.length,
                 (index) => buildSmallProductPreview(index)),
           ],
         )
@@ -62,7 +65,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: buildCacheNetworkImage(url: widget.image[index]),
       ),
     );
   }

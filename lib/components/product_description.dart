@@ -1,3 +1,4 @@
+import 'package:b2b_mobile/app/modules/prodact_detail/prodact_detail_model.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:b2b_mobile/models/Product.dart';
@@ -7,11 +8,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key? key,
-    required this.product,
+    required this.description,
+    required this.name,
     this.pressOnSeeMore,
   }) : super(key: key);
 
-  final Product product;
+  final String description;
+  final String name;
   final GestureTapCallback? pressOnSeeMore;
 
   @override
@@ -23,7 +26,7 @@ class ProductDescription extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            product.title,
+            name.toString(),
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -33,9 +36,7 @@ class ProductDescription extends StatelessWidget {
             padding: EdgeInsets.all(getProportionateScreenWidth(15)),
             width: getProportionateScreenWidth(64),
             decoration: BoxDecoration(
-              color: product.isFavourite
-                  ? const Color(0xFFFFE6E6)
-                  : const Color(0xFFF5F6F9),
+              color: const Color(0xFFFFE6E6),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
@@ -43,9 +44,7 @@ class ProductDescription extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               "assets/icons/Heart Icon_2.svg",
-              color: product.isFavourite
-                  ? const Color(0xFFFF4848)
-                  : Color(0xFFDBDEE4),
+              color: const Color(0xFFFF4848),
               height: getProportionateScreenWidth(16),
             ),
           ),
@@ -56,7 +55,7 @@ class ProductDescription extends StatelessWidget {
             right: getProportionateScreenWidth(64),
           ),
           child: Text(
-            product.description,
+            description,
             maxLines: 3,
           ),
         ),

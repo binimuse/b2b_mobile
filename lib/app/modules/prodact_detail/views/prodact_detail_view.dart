@@ -19,47 +19,50 @@ class ProdactDetailView extends GetView<ProdactDetailController> {
         backgroundColor: Color(0xFFF5F6F9),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-          child: CustomAppBar(rating: controller.product.rating),
+          child: const CustomAppBar(rating: 4),
         ),
-        body: ListView(
-          children: [
-            ProductImages(product: controller.product),
-            TopRoundedContainer(
-              color: Colors.white,
-              child: Column(
+        body: Obx(() => controller.loading.value != false
+            ? const Center(child: CircularProgressIndicator())
+            : ListView(
                 children: [
-                  ProductDescription(
-                    product: controller.product,
-                    pressOnSeeMore: () {},
-                  ),
+                  ProductImages(image: controller.imagelink),
                   TopRoundedContainer(
-                    color: const Color(0xFFF6F7F9),
+                    color: Colors.white,
                     child: Column(
                       children: [
-                        ColorDots(product: controller.product),
+                        ProductDescription(
+                          description: controller.description.value.toString(),
+                          name: controller.name.value.toString(),
+                          pressOnSeeMore: () {},
+                        ),
                         TopRoundedContainer(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeConfig.screenWidth * 0.15,
-                              right: SizeConfig.screenWidth * 0.15,
-                              bottom: getProportionateScreenWidth(40),
-                              top: getProportionateScreenWidth(15),
-                            ),
-                            child: DefaultButton(
-                              text: "Add To Cart",
-                              press: () {},
-                            ),
+                          color: const Color(0xFFF6F7F9),
+                          child: Column(
+                            children: [
+                              const ColorDots(),
+                              TopRoundedContainer(
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: SizeConfig.screenWidth * 0.15,
+                                    right: SizeConfig.screenWidth * 0.15,
+                                    bottom: getProportionateScreenWidth(40),
+                                    top: getProportionateScreenWidth(15),
+                                  ),
+                                  child: DefaultButton(
+                                    text: "Add To Cart",
+                                    press: () {},
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
-        ));
+              )));
   }
 }
 

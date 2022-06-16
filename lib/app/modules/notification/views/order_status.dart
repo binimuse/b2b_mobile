@@ -207,19 +207,19 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(orderStatus,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color: CHARCOAL)),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Text(date,
                           style:
                               TextStyle(color: Colors.grey[400], fontSize: 11)),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Text(orderDescription,
-                          style: TextStyle(color: BLACK_GREY)),
+                          style: const TextStyle(color: BLACK_GREY)),
                     ],
                   ),
                 ),

@@ -1,6 +1,8 @@
 import 'package:b2b_mobile/app/modules/home/controllers/home_controller.dart';
+import 'package:b2b_mobile/app/modules/home/product_model.dart';
 import 'package:b2b_mobile/app/modules/prodact_detail/views/prodact_detail_view.dart';
 import 'package:b2b_mobile/app/routes/app_pages.dart';
+import 'package:b2b_mobile/constant/cache_image_network.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:b2b_mobile/models/Product.dart';
@@ -17,7 +19,7 @@ class ProductCard extends GetView<HomeController> {
   }) : super(key: key);
 
   final double width, aspectRetio;
-  final Product product;
+  final ProdactModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ProductCard extends GetView<HomeController> {
             Get.toNamed(
               Routes.PRODACT_DETAIL,
               arguments: {
-                "product": product,
+                "product": product.id.toString(),
               },
             );
           },
@@ -38,22 +40,22 @@ class ProductCard extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 1.02,
+                aspectRatio: 0.6,
                 child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   decoration: BoxDecoration(
                     color: kSecondaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
+                    child: buildCacheNetworkImage(url: product.iamgelink),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                product.title,
+                product.name,
                 style: const TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -61,7 +63,7 @@ class ProductCard extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${product.price} ETB",
+                    "${4} ETB",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -76,17 +78,11 @@ class ProductCard extends GetView<HomeController> {
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: product.isFavourite
-                            ? kPrimaryColor.withOpacity(0.15)
-                            : kSecondaryColor.withOpacity(0.1),
+                        color: kPrimaryColor.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
-                        color: product.isFavourite
-                            ? const Color(0xFFFF4848)
-                            : const Color(0xFFDBDEE4),
-                      ),
+                      child: SvgPicture.asset("assets/icons/Heart Icon_2.svg",
+                          color: const Color(0xFFFF4848)),
                     ),
                   ),
                 ],

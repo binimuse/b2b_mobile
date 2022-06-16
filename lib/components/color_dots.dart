@@ -1,15 +1,12 @@
+import 'package:b2b_mobile/app/modules/prodact_detail/prodact_detail_model.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/models/Product.dart';
 import 'package:flutter/material.dart';
 
-
 class ColorDots extends StatelessWidget {
   const ColorDots({
     Key? key,
-    required this.product,
   }) : super(key: key);
-
-  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +49,8 @@ class ColorDots extends StatelessWidget {
                 const Text('Category', style: TextStyle(color: BLACK_GREY)),
                 GestureDetector(
                   onTap: () {},
-                  child: const Text('Food', style: TextStyle(color: kPrimaryColor)),
+                  child: const Text('Food',
+                      style: TextStyle(color: kPrimaryColor)),
                 )
               ],
             ),
