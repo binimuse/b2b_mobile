@@ -12,7 +12,7 @@ class SearchpageView extends GetView<SearchpageController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => controller.loadingnew.value != true
-        ? const Center(child: CircularProgressIndicator())
+        ? controller.shimmerLoading.buildShimmerContent()
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(

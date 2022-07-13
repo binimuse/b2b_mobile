@@ -4,6 +4,7 @@ import 'package:b2b_mobile/Services/graphql_conf.dart';
 import 'package:b2b_mobile/app/modules/home/catagories_model.dart';
 import 'package:b2b_mobile/app/modules/home/product_query_mutation.dart';
 import 'package:b2b_mobile/constant/reusable_widget.dart';
+import 'package:b2b_mobile/constant/shimmer_loading.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -13,7 +14,7 @@ import '../product_model.dart';
 class HomeController extends GetxController {
   final count = 0.obs;
 
-  //  final shimmerLoading = ShimmerLoading();
+  final shimmerLoading = ShimmerLoading();
   final reusableWidget = ReusableWidget();
 
   var loading = false.obs;

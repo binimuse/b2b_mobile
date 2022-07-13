@@ -9,6 +9,7 @@ import 'package:b2b_mobile/components/top_rounded_container.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/global_style.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
+import 'package:b2b_mobile/helper/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -20,11 +21,11 @@ class TopUpPage extends GetView<WalletController> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: GlobalStyle.appBarIconThemeColor,
         ),
         elevation: GlobalStyle.appBarElevation,
-        title: Text(
+        title: const Text(
           'Top Up',
           style: GlobalStyle.appBarTitle,
         ),
@@ -34,6 +35,7 @@ class TopUpPage extends GetView<WalletController> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: controller.depositeform,
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -55,6 +57,7 @@ class TopUpPage extends GetView<WalletController> {
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 0, bottom: 0),
                         child: TextFormField(
+                          controller: controller.transaction,
                           maxLines: null,
                           onChanged: (String txt) {},
                           style: const TextStyle(
@@ -65,9 +68,9 @@ class TopUpPage extends GetView<WalletController> {
                               border: InputBorder.none,
                               hintText:
                                   'Enter your transaction reference number'),
-                          // validator: (value) {
-                          //   return walletContoller.validateName(value!);
-                          // },
+                          validator: (value) {
+                            return controller.validateName(value!);
+                          },
                         ),
                       ),
                     ),
@@ -86,18 +89,20 @@ class TopUpPage extends GetView<WalletController> {
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 0, bottom: 0),
                         child: TextFormField(
+                          controller: controller.amount,
                           maxLines: null,
                           onChanged: (String txt) {},
                           style: const TextStyle(
                             fontSize: 16,
                           ),
                           cursorColor: Colors.orange,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Enter the amount'),
-                          // validator: (value) {
-                          //   return walletContoller.validateName(value!);
-                          // },
+                          validator: (value) {
+                            return controller.validatamount(value!);
+                          },
                         ),
                       ),
                     ),
@@ -109,17 +114,36 @@ class TopUpPage extends GetView<WalletController> {
                 TopRoundedContainer(
                   color: Colors.white,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.15,
-                      right: SizeConfig.screenWidth * 0.15,
-                      bottom: getProportionateScreenWidth(40),
-                      top: getProportionateScreenWidth(15),
-                    ),
-                    child: DefaultButton(
-                      text: "Submit",
-                      press: () {},
-                    ),
-                  ),
+                      padding: EdgeInsets.only(
+                        left: SizeConfig.screenWidth * 0.15,
+                        right: SizeConfig.screenWidth * 0.15,
+                        bottom: getProportionateScreenWidth(40),
+                        top: getProportionateScreenWidth(15),
+                      ),
+                      child: Obx(
+                        () => controller.updatepro.value != false
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                    color: kPrimaryColor),
+                              )
+                            : DefaultButton(
+                                text: "Submit",
+                                press: () {
+                                  KeyboardUtil.hideKeyboard(context);
+
+                                  final isValid = controller
+                                      .depositeform.currentState!
+                                      .validate();
+                                  if (!isValid) {
+                                    return;
+                                  }
+
+                                  controller.depositeform.currentState!.save();
+
+                                  controller.deposite();
+                                },
+                              ),
+                      )),
                 ),
               ],
             ),
@@ -143,7 +167,7 @@ class TopUpPage extends GetView<WalletController> {
                     onTap: () {
                       showPicker(context);
                     },
-                    child: controller.selectedImagePath != null
+                    child: controller.selectedImagePath != ""
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(40),
                             child: Image.file(
@@ -168,9 +192,9 @@ class TopUpPage extends GetView<WalletController> {
                     onTap: () {
                       showPicker(context);
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: const Text("Upload your bank slip",
+                    child: const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text("Upload your bank slip",
                           style: TextStyle(color: kPrimaryColor)),
                     ),
                   ),
@@ -189,14 +213,17 @@ class TopUpPage extends GetView<WalletController> {
               children: <Widget>[
                 ListTile(
                     leading: const Icon(Icons.photo_library),
+                    iconColor: kPrimaryColor,
                     title: const Text('Photo Library'),
                     onTap: () {
                       controller.getImage(ImageSource.gallery);
+
                       Navigator.of(context).pop();
                       // _showAlertDialog(context);
                     }),
                 ListTile(
                   leading: const Icon(Icons.photo_camera),
+                  iconColor: kPrimaryColor,
                   title: const Text('Camera'),
                   onTap: () {
                     controller.getImage(ImageSource.camera);

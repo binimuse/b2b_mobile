@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:b2b_mobile/app/modules/searchpage/Model/restaurant_model.dart';
 import 'package:b2b_mobile/app/modules/searchpage/Model/search_restaurant_model.dart';
 import 'package:b2b_mobile/constant/reusable_widget.dart';
+import 'package:b2b_mobile/constant/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,7 @@ class SearchpageController extends GetxController {
   //TODO: Implement SearchpageController
 
   final reusableWidget = ReusableWidget();
-
+  var shimmerLoading = ShimmerLoading();
   var loading = false.obs;
   var loadingnew = false.obs;
   Timer? timerDummy;

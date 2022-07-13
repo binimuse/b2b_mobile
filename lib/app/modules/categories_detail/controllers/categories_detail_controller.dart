@@ -1,6 +1,7 @@
 import 'package:b2b_mobile/Services/graphql_conf.dart';
 import 'package:b2b_mobile/app/modules/categories_detail/catagories_detail_model.dart';
 import 'package:b2b_mobile/constant/reusable_widget.dart';
+import 'package:b2b_mobile/constant/shimmer_loading.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -8,6 +9,7 @@ import '../catagories_detail_query_mutation.dart';
 
 class CategoriesDetailController extends GetxController {
   final reusableWidget = ReusableWidget();
+  final shimmerLoading = ShimmerLoading();
 
   var loading = false.obs;
   final count = 0.obs;

@@ -160,24 +160,7 @@ class SigninView extends GetView<SigninController> {
                           )
                         ],
                       )),
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocalCard(
-                        icon: "assets/icons/google-icon.svg",
-                        press: () {},
-                      ),
-                      SocalCard(
-                        icon: "assets/icons/facebook-2.svg",
-                        press: () {},
-                      ),
-                      SocalCard(
-                        icon: "assets/icons/twitter.svg",
-                        press: () {},
-                      ),
-                    ],
-                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.08), 
                   SizedBox(height: getProportionateScreenHeight(20)),
                   NoAccountText(),
                 ],

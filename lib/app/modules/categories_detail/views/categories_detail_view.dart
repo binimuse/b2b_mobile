@@ -31,12 +31,7 @@ class CategoriesDetailView extends GetView<CategoriesDetailController> {
       ),
       body: Obx(
         () => controller.loading.value
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: kPrimaryColor,
-                  strokeWidth: 8,
-                ),
-              )
+            ? controller.shimmerLoading.buildShimmerContent()
             : ListView.builder(
                 itemCount: controller.CatagoriDetailData.length,
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

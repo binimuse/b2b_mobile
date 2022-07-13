@@ -1,16 +1,17 @@
-class ProdactDetailModel {
-  late String id;
+class ProdactattributesModel {
   late String name;
-  late List<String> imagelink;
-  late String description;
+
+  late double price;
+  late String attribute_name;
+  late String attributeValue;
 
 //  late String children_iamge;
 
-  ProdactDetailModel({
+  ProdactattributesModel({
     required this.name,
-    required this.id,
-    required this.imagelink,
-    required this.description,
+    required this.price,
+    required this.attribute_name,
+    required this.attributeValue,
 
     // required this.children_iamge ,
   });

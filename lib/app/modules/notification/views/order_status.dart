@@ -3,8 +3,6 @@ import 'package:b2b_mobile/constant/global_style.dart';
 import 'package:b2b_mobile/constant/reusable_widget.dart';
 import 'package:flutter/material.dart';
 
-
-
 class OrderStatusPage extends StatefulWidget {
   @override
   _OrderStatusPageState createState() => _OrderStatusPageState();
@@ -70,10 +68,10 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 0),
+          margin: const EdgeInsets.only(top: 0),
           width: 16,
           height: 16,
-          decoration: new BoxDecoration(
+          decoration:  const BoxDecoration(
             shape: BoxShape
                 .circle, // You can use like this way or like the below line
             //borderRadius: new BorderRadius.circular(30.0),
@@ -131,7 +129,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
           margin: EdgeInsets.only(top: 0),
           width: 16,
           height: 16,
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape
                 .circle, // You can use like this way or like the below line
             //borderRadius: new BorderRadius.circular(30.0),
@@ -150,25 +148,25 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
               ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(left: 32, right: 32),
+                  margin: const EdgeInsets.only(left: 32, right: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(orderStatus,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color: CHARCOAL)),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Text(date,
                           style:
                               TextStyle(color: Colors.grey[400], fontSize: 11)),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Text(orderDescription,
                           style: TextStyle(color: BLACK_GREY)),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       )
                     ],
@@ -190,7 +188,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
           margin: EdgeInsets.only(top: 0),
           width: 16,
           height: 16,
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape
                 .circle, // You can use like this way or like the below line
             //borderRadius: new BorderRadius.circular(30.0),

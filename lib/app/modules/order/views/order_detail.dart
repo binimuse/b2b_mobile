@@ -1,3 +1,4 @@
+import 'package:b2b_mobile/app/modules/prodact_detail/views/fabclass.dart';
 import 'package:b2b_mobile/constant/cache_image_network.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/global_style.dart';
@@ -26,29 +27,32 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: GlobalStyle.appBarIconThemeColor,
+    return MyFabParent(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: GlobalStyle.appBarIconThemeColor,
+          ),
+          systemOverlayStyle: GlobalStyle.appBarSystemOverlayStyle,
+          centerTitle: true,
+          title:
+              const Text('Feb 4, 2020 18:13', style: GlobalStyle.appBarTitle),
+          backgroundColor: GlobalStyle.appBarBackgroundColor,
+          bottom: _reusableWidget.bottomAppBar(),
         ),
-        systemOverlayStyle: GlobalStyle.appBarSystemOverlayStyle,
-        centerTitle: true,
-        title: const Text('Feb 4, 2020 18:13', style: GlobalStyle.appBarTitle),
-        backgroundColor: GlobalStyle.appBarBackgroundColor,
-        bottom: _reusableWidget.bottomAppBar(),
-      ),
-      body: ListView(
-        children: [
-          _buildOrderInformation(),
-          _buildRestaurantInformation(),
-          _reusableWidget.divider1(),
-          _reusableWidget.deliveryInformation(),
-          _reusableWidget.divider1(),
-          _buildOrderSummary(),
-          _reusableWidget.divider1(),
-          _buildTotalSummary()
-        ],
+        body: ListView(
+          children: [
+            _buildOrderInformation(),
+            _buildRestaurantInformation(),
+            _reusableWidget.divider1(),
+            _reusableWidget.deliveryInformation(),
+            _reusableWidget.divider1(),
+            _buildOrderSummary(),
+            _reusableWidget.divider1(),
+            _buildTotalSummary()
+          ],
+        ),
       ),
     );
   }

@@ -6,6 +6,18 @@ mutation($id: ID!) {
         name
         images
         description
+          skus {
+            id
+            price
+            variants {
+                attribute {
+                    name
+                }
+                attributeValue {
+                    value
+                }
+            }
+        }
         
     }
 }

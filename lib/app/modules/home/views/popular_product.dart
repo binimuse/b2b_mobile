@@ -22,7 +22,7 @@ class PopularProducts extends GetView<HomeController> {
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         Obx(() => controller.loadingProdact.value != false
-            ? const Center(child: CircularProgressIndicator())
+            ? controller.shimmerLoading.buildShimmerContent()
             : SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

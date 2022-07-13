@@ -31,7 +31,7 @@ class SpecialOffers extends GetView<HomeController> {
         SizedBox(height: getProportionateScreenWidth(20)),
         Obx(
           () => controller.loading.value != false
-              ? const Center(child: CircularProgressIndicator())
+              ?  controller.shimmerLoading.buildShimmerContent()
               : Container(
                   margin: const EdgeInsets.only(top: 8),
                   height: 100,

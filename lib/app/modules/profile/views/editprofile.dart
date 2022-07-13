@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:b2b_mobile/constant/constants.dart';
@@ -49,20 +51,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
           },
           child: ListView(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: _buildComposer(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
               buildTextField("Full Name", "Dor Alex", false),
               buildTextField("E-mail", "alexd@gmail.com", false),
               buildTextField("Password", "********", true),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
               Row(

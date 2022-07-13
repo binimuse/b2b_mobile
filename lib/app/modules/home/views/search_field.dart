@@ -38,15 +38,15 @@ class _SearchFieldPageState extends State<SearchField> {
         onChanged: (value) => print(value),
         onTap: () {
           Get.toNamed(Routes.SEARCHPAGE);
-          Navigator.push(
-            // ignore: prefer_const_constructors
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const SearchpageView(),
-              transitionDuration: Duration.zero,
-            ),
-          );
+          // Navigator.push(
+          //   // ignore: prefer_const_constructors
+          //   context,
+          //   PageRouteBuilder(
+          //     pageBuilder: (context, animation1, animation2) =>
+          //         const SearchpageView(),
+          //     transitionDuration: Duration.zero,
+          //   ),
+          // );
         },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(

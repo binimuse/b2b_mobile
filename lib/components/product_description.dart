@@ -1,9 +1,12 @@
 import 'package:b2b_mobile/app/modules/prodact_detail/prodact_detail_model.dart';
+import 'package:b2b_mobile/app/modules/prodact_detail/views/prodact_detail_view.dart';
+import 'package:b2b_mobile/app/routes/app_pages.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';
 import 'package:b2b_mobile/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
@@ -35,9 +38,9 @@ class ProductDescription extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(15)),
             width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFE6E6),
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFE6E6),
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               ),
@@ -65,10 +68,14 @@ class ProductDescription extends StatelessWidget {
             vertical: 10,
           ),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              print("object");
+
+            
+            },
             child: Row(
-              children: [
-                const Text(
+              children: const [
+                Text(
                   "See More Detail",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
