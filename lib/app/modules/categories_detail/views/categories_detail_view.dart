@@ -1,9 +1,6 @@
 import 'package:b2b_mobile/app/modules/categories_detail/controllers/categories_detail_controller.dart';
-import 'package:b2b_mobile/app/modules/home/catagories_model.dart';
-import 'package:b2b_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:b2b_mobile/components/coustom_bottom_nav_bar.dart';
 import 'package:b2b_mobile/constant/cache_image_network.dart';
-import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/enums.dart';
 import 'package:b2b_mobile/constant/global_style.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +17,7 @@ class CategoriesDetailView extends GetView<CategoriesDetailController> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: GlobalStyle.appBarIconThemeColor,
         ),
         systemOverlayStyle: GlobalStyle.appBarSystemOverlayStyle,
@@ -84,7 +81,7 @@ class CategoriesDetailView extends GetView<CategoriesDetailController> {
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
+                          children: const [
                             // Text(orderData.date,
                             //     style:
                             //         TextStyle(fontSize: 11, color: SOFT_GREY)),

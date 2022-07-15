@@ -23,13 +23,13 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             children: [
               SizedBox(height: getProportionateScreenHeight(20)),
-              HomeHeader(),
+              const HomeHeader(),
               SizedBox(height: getProportionateScreenWidth(10)),
               const DiscountBanner(),
               //  Categories(),
               const SpecialOffers(),
               SizedBox(height: getProportionateScreenWidth(30)),
-              PopularProducts(),
+              const PopularProducts(),
               SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),

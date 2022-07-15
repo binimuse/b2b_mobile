@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:b2b_mobile/Services/graphql_conf.dart';
 import 'package:b2b_mobile/app/modules/categories_detail/catagories_detail_model.dart';
 import 'package:b2b_mobile/constant/reusable_widget.dart';
@@ -49,14 +51,10 @@ class CategoriesDetailController extends GetxController {
         loading(false);
       }
     } else {
-      print(result.exception);
+    //  print(result.exception);
     }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

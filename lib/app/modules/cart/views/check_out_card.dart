@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_mobile/components/default_button.dart';
 import 'package:b2b_mobile/constant/constants.dart';
 import 'package:b2b_mobile/constant/size_config.dart';

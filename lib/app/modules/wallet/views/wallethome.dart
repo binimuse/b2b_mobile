@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import '../depositedata_model.dart';
 
 class HomePage extends GetView<WalletController> {
+  HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
